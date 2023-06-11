@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+clock x;
+chan extend_deadline;</declaration>
+	<template>
+		<name x="5" y="5">CBSloop</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="0" y="0">
+			<name x="-127" y="-8">check_deadlines</name>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="guard" x="119" y="-34">x&gt;=2</label>
+			<label kind="synchronisation" x="110" y="0">extend_deadline!</label>
+			<nail x="93" y="-59"/>
+			<nail x="93" y="59"/>
+		</transition>
+	</template>
+	<template>
+		<name>Execute</name>
+		<location id="id1" x="-569" y="-136">
+			<name x="-612" y="-144">Idle</name>
+		</location>
+		<location id="id2" x="-255" y="-144">
+			<name x="-229" y="-153">Execution</name>
+			<committed/>
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-153" y="-153">x&gt;=2</label>
+			<nail x="-161" y="-238"/>
+			<nail x="-161" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="assignment" x="-416" y="-110">x:=0</label>
+			<nail x="-306" y="-85"/>
+			<nail x="-518" y="-85"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-459" y="-221">extend_deadline?</label>
+			<nail x="-527" y="-195"/>
+			<nail x="-297" y="-195"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+
+// List one or more processes to be composed into a system.
+system CBSloop,Execute;
+    </system>
+	<queries>
+		<query>
+			<formula></formula>
+			<comment></comment>
+		</query>
+	</queries>
+</nta>
